@@ -23,7 +23,7 @@ jobs:
         fetch-depth: 1
 
   Deploy:
-    name: Build
+    name: Deploy
     runs-on:
     - ubuntu-latest
     steps:
@@ -37,7 +37,7 @@ jobs:
         cat INFO.md >> "$GITHUB_STEP_SUMMARY" || echo "No hay archivo INFO.md"
 
   LoadTest:
-    name: Build
+    name: LoadTest
     runs-on:
     - ubuntu-latest
     steps:
