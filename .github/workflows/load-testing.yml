@@ -34,6 +34,6 @@ jobs:
 
     - name: "Load test"
       run: |
-        docker run -it --rm ddosify/ddosify ddosify -t https://app.servdown.com
+        docker run --rm ddosify/ddosify ddosify -t https://app.servdown.com
         
     
