@@ -1,0 +1,39 @@
+name: Desarrollo
+
+permissions:
+  id-token: write
+  contents: read
+concurrency: dev
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+  
+jobs:
+  Build:
+    name: Build
+    runs-on:
+    - ubuntu-latest
+    steps:
+    - id: checkout
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 1
+
+    - name: "Información"
+      run: |
+        cat INFO.md >> "$GITHUB_STEP_SUMMARY" || echo "No hay archivo INFO.md"
+
+    - name: "Linter Github Workflow"
+      run: |
+        bash <(curl https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash)
+        ./actionlint -color
+      shell: bash
+
+    - name: "Load test"
+      run: |
+        docker run -it --rm ddosify/ddosify ddosify -t https://app.servdown.com
+        
+    
